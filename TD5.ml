@@ -42,3 +42,14 @@ let cartesien l1 l2 = cartesienacc l1 l2 [];;
 let rec cartesien2 l1 l2 = match l1 with
   |[]->[]
   |h::t->(couple l2 h)@(cartesien2 t l2);;
+
+(* autre variant avec list.map
+
+let rec cartesien l1 l2 = match l with
+    |[]->[]
+    |h::t-> (List.map(fun a->(h,a)) l2 )@(cartesien t l2);;*)
+
+let l = [1;2;3];;
+List_fold_left (+) 0 (List.map (fun x -> x*x) l);;
+List_fold_left (fun x a -> x + a*a) 0 l;;
+
