@@ -11,11 +11,11 @@
 
 un arbre est dit équilibré si tous les noeuds ont 2 enfants ou sont une feuille.
 
-Propriété arbre de recherche binaireff :Soit x un noeud d'un arbre T,
+Propriété : arbre de recherche binaire :Soit x un noeud d'un arbre T,
      *si y est un noeud dans y sous-arbre à gauche de x alors val(y) <= val(x)
      *si z est un noeud dans y sous-arbre à droite de x alors val(z) >= val(x)
 
-                             7
+Ex :                         7
                             / \
                            5   9
                           / \ / \
@@ -99,7 +99,7 @@ let rec insert x t = match t with
             / \   ( le fils gauche de gauche de ce successeur est forcément Nil)
            y   z   On remplace ensuite x par succ(x) puis on ajoute les fils y et z (sans le succ(x))
                    Et y' (le fils droite de succ(x) prend la place de succ(x) *)
-
+(*
 let rec delete x t = match t with
   |Nil ->Nil
   |Node(Nil,y,Nil)-> if x=y then Nil else Node(Nil,y,Nil)
@@ -108,3 +108,5 @@ let rec delete x t = match t with
   |Node(t1,y,t2)-> if x=y then Node(t1,(succ x t1),(delete t2 succ x))
                    else if x<y then Node((delete t1 x),y,t2)
                                       else Node(t1,y,delete(t2 x));;
+ *)
+
