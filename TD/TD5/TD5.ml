@@ -1,55 +1,72 @@
-let rec insert1 l v = match l with
-  |[]-> [v]
-  |[a]->if v>a then a::[v] else v::[a]
-  |a::b::tl -> if v<a then v::l else (if v>b then a::b::(insert1 tl v) else a::v::b::tl) ;;
+
+   Pre-order : on commence par les racines  (R,G,D) (préfixe en fr)
+   In-order : on prend les valeurs dans l'ordre croissant (G,R,D) (Infixe)
+   Post-order : on prend les feuilles en premier (G,D,R) (postfixe) *)
 
 
-let rec insert2 l v = match l with
-  |[]->[v]
-  |h::t->if h>v then v::l else h::(insert2 t v);;
+type t  =
+  |Nil
+  |Node of int*t*t;;
+
+let rec prefixe t = match t with
+  |Nil->[]
+  |Node(r,g,d) -> (r::(prefixe g))@(prefixe d);;
+
+let rec infixe t = match t with
+  |Nil->[]
+  |Node(r,g,d) -> (infixe g)@(r::(infixe d));;
+
+let rec postfixe t = match t with
+  |Nil->[]
+  |Node(r,g,d) -> (postfixe g)@(postfixe d)@[r];;
+
+(*2- Il ne s'agit pas d'un arbre de recherche binaire car z est avant y sur l'arbre alors qu'il est après dans l'alphabet
+
+3- pre - ( CASIENLOY )
+4- in - ( ACEILNOSY )
+5- post - ( AELONIYSC )*)
 
 
-let sort l =let rec sortacc l acc = match l with
-  |[]->acc
-  |hd::tl-> sortacc tl (insert2 acc hd) in sortacc l [];;
+(*type tchar =
+  |Nil
+  |Node of tchar*char*tchar;;*)
 
-let rec remove l a = match l with
-  |[]->[]
-  |hd::tl-> if hd = a then remove tl a else hd::remove tl a;;
 
-let remove2 l a = List.filter(fun x-> x<>a) l;;
+let rec insert x t = match t with
+  |Nil->Node(Nil,x,Nil)
+  |Node(a,b,c)->if( x>=b) then Node(a,b,insert x c) else Node(insert x a,b,c);;
 
-let rec oneofeach l = match l with
-  |[]->[]
-  |hd::tl-> hd::oneofeach2(remove tl hd);;
+let rec list_insert l t = match l with
+  |[]-> t
+  |h::d-> list_insert d (insert h t);;
 
-let  union l m = oneofeach( l @ m);;
+(* Les deux descriptions ne donnent pas le même arbre
 
-let rec union2 l m = match l with
-  |[]->m
-  |h::t->h::union t (remove m h);;
+                                13
+                             /      \
+                           5          19
+                         /   \           \
+                       3      11          23
+                     /       /
+                   2        7
 
-let rec couple l x = match l with
-  |[]->[]
-  |h::t->(h,x)::couple t x;;
+                                13
+                             /      \
+                           11        19
+                         /              \
+                      7                   23
+                    /
+                 5
+               /
+              3
+            /
+         2                      *)
 
-let rec cartesienacc l1 l2 acc = match l1 with
-  |[]->acc
-  |h::tl->cartesienacc tl l2 ((couple l2 h)@ acc);;
 
-let cartesien l1 l2 = cartesienacc l1 l2 [];;
+let rec next l x = match l with
+  |[]-> None
+  |a::b::l'-> when a=x then some b else next b::l' x;;
 
-let rec cartesien2 l1 l2 = match l1 with
-  |[]->[]
-  |h::t->(couple l2 h)@(cartesien2 t l2);;
+   let succ x t = next (infixe t) x;;
 
-(* autre variant avec list.map
-
-let rec cartesien l1 l2 = match l with
-    |[]->[]
-    |h::t-> (List.map(fun a->(h,a)) l2 )@(cartesien t l2);;*)
-
-let l = [1;2;3];;
-List_fold_left (+) 0 (List.map (fun x -> x*x) l);;
-List_fold_left (fun x a -> x + a*a) 0 l;;
-
+   
