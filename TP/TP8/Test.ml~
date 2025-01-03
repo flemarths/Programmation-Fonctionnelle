@@ -1,0 +1,19 @@
+(* Open the Graphics module *)
+open Graphics;;
+
+(* Initialize the graphics window *)
+let () =
+  open_graph " 800x600";  (* Set the window size to 800x600 *)
+  set_window_title "OCaml Graphics with Emacs";
+
+  (* Set the drawing color *)
+  set_color blue;
+
+  (* Draw a circle *)
+  fill_circle 400 300 100;
+
+  (* Keep the window open until a key is pressed *)
+  ignore (read_key ());
+
+  (* Close the graphics window *)
+  close_graph ();;

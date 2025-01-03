@@ -1,0 +1,37 @@
+(*1*)
+type 'a tree =
+    |Null
+    |Node of 'a*'a tree*'a tree;;
+
+let rec is_st tree = match tree with
+  |Null->true
+  |Node(v,l,r)->let m = match l,r with
+                  |Null,Null->true                            
+                  |Null,Node(y,_,_)->y>v
+                  |Node(x,_,_),Null->x<v                                   
+                  |Node(x,_,_),Node(y,_,_)->x<v && y>v in (m && is_st l && is_st r);;
+
+(*2*)
+
+
+let rec is_in t x = match t with
+  |Null->false
+  |Node(v,l,r)-> v=x || (is_in l x ) || (is_in r x) ;;
+
+let rec min_anc a b t = let x,y = min a b,max a b in match t with
+                                                     |Null-> None                                                           
+                                                     |Node(v,l,r)-> match is_in l x && is_in l y,is_in r x && is_in r y with
+                                                                    |false,false->Some v
+                                                                    |true,false->min_anc x y l
+                                                                    |false,true->min_anc x y r
+                                                                    |true,true->None;;
+
+
+(*3*)
+
+let rec in_order t = match t with
+  |Null -> []
+  |Node(v,l,r)-> in_order l @ [v] @ in_order r;;
+
+let rec k_bigger k t = if List.length t = k then 
+ 

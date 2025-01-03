@@ -21,7 +21,7 @@ let remove2 l a = List.filter(fun x-> x<>a) l;;
 
 let rec oneofeach l = match l with
   |[]->[]
-  |hd::tl-> hd::oneofeach2(remove tl hd);;
+  |hd::tl-> hd::oneofeach(remove tl hd);;
 
 let  union l m = oneofeach( l @ m);;
 
@@ -49,7 +49,9 @@ let rec cartesien l1 l2 = match l with
     |[]->[]
     |h::t-> (List.map(fun a->(h,a)) l2 )@(cartesien t l2);;*)
 
-let l = [1;2;3];;
+(*let l = [1;2;3];;
 List_fold_left (+) 0 (List.map (fun x -> x*x) l);;
-List_fold_left (fun x a -> x + a*a) 0 l;;
+List_fold_left (fun x a -> x + a*a) 0 l;;*)
+
+
 

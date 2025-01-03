@@ -1,0 +1,52 @@
+(*1.1*)
+
+type 'a tree =
+  |Null
+  |Node of 'a*'a tree*'a tree;;
+
+
+let rec pre_order t = match t with
+  |Null -> []
+  |Node(v,l,r)-> [v]@(pre_order l)@(pre_order r);;
+
+let rec in_order t = match t with
+  |Null -> []
+  |Node(v,l,r)-> (in_order l)@[v]@(in_order r);;
+
+let rec post_order t = match t with
+  |Null -> []
+  |Node(v,l,r)-> (post_order l)@(post_order r)@[v];;
+
+(*1.2*)
+
+(* Non il ne s'agit pas d'un arbre de recherche binaire car le Z est à gauche du Y alors qu'il devrait être à droite*)
+
+
+(*1.3*)
+(*A,E,L,O,N,I,Y,S,C*)
+
+(*1.4*)
+(*C,A,S,I,E,N,L,O,Y*)
+
+(*1.5*)
+(*A,C,E,I,L,N,O,S,Y*)
+
+
+(*2*)
+(*                                           B
+                                         /      \
+                                      A            R
+                                                /     \
+                                              N         S
+                                            /
+                                          C
+                                           \
+                                            H
+                                            /
+                                          E
+ *)
+
+
+
+
+  

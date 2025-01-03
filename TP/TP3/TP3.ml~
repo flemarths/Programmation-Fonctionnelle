@@ -1,0 +1,24 @@
+(*1*)
+type 'a nelist =
+  |Nil of 'a
+  |Cons of 'a * 'a nelist;;
+
+(*2*)
+type point = { x : int ; y : int };;
+
+let move_left p = {x=p.x-1;y=p.y};;
+
+
+(*3*)
+type card = N | S | E | W;;
+
+(*4*)
+let move p card = match card with
+  |N -> {x=p.x ; y=p.y+1}
+  |S -> {x=p.x ; y=p.y-1}
+  |E -> {x=p.x+1 ; y=p.y}
+  |W -> {x=p.x-1 ; y=p.y};;
+
+let multi_move p l = match l with
+  |[]->p
+  |hd::tl-> multi_move (move p hd) tl;;
